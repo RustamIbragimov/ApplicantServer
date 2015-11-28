@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.MainController">
+  <children>
+    <Label layoutX="132.0" layoutY="34.0" text="Applicant Server">
+      <font>
+        <Font name="Times New Roman" size="20.0" />
+      </font>
+    </Label>
+    <TextField fx:id="portTextField" layoutX="138.0" layoutY="90.0" prefHeight="23.0" prefWidth="131.0" />
+    <Label fx:id="portLabel" layoutX="82.0" layoutY="91.0" text="Port">
+      <font>
+        <Font size="16.0" fx:id="x2" />
+      </font>
+    </Label>
+    <Label fx:id="errorPortLabel" layoutX="138.0" layoutY="130.0" text="" textFill="RED">
+      <font>
+        <Font name="Times New Roman" size="16.0" fx:id="x3" />
+      </font>
+    </Label>
+    <Button fx:id="importButton" layoutX="307.0" layoutY="87.0" mnemonicParsing="false" onAction="#importAction" text="Import">
+      <font>
+        <Font name="Times New Roman" size="18.0" fx:id="x1" />
+      </font>
+    </Button>
+    <Button font="$x1" layoutX="93.0" layoutY="163.0" mnemonicParsing="false" onAction="#exportAction" prefHeight="34.0" prefWidth="79.00009999999747" text="Export" />
+    <Button font="$x1" layoutX="151.0" layoutY="549.0" mnemonicParsing="false" onAction="#showStatistics" prefHeight="29.0" prefWidth="106.0" text="Statistics" />
+    <Label fx:id="ipAddressLabel" font="$x2" layoutX="160.0" layoutY="513.0" text="" />
+    <Button fx:id="startServerButton" font="$x3" layoutX="216.0" layoutY="163.0" mnemonicParsing="false" onAction="#startServerAction" prefHeight="34.00010681152344" prefWidth="106.00009999999747" text="Start Server" />
+  </children>
+</AnchorPane>

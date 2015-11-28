@@ -1,0 +1,20 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="ApplicantServer">
+    <output-path>$PROJECT_DIR$/out/artifacts/ApplicantServer</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="main.Main" />
+        <option name="description" value="" />
+        <option name="htmlParamFile" value="" />
+        <option name="paramFile" value="" />
+        <option name="title" value="Applicant Server" />
+        <option name="vendor" value="rustam.org" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="ApplicantServer.jar">
+        <element id="module-output" name="ApplicantServer" />
+      </element>
+    </root>
+  </artifact>
+</component>

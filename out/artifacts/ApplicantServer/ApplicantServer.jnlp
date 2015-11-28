@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="ApplicantServer.jnlp">
+  <information>
+    <title>Applicant Server</title>
+    <vendor>rustam.org</vendor>
+    <description>ApplicantServer</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="ApplicantServer.jar" size="15626" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="600" height="400" main-class="main.Main"  name="ApplicantServer" />
+  <update check="background"/>
+</jnlp>
