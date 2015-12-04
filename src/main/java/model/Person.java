@@ -17,7 +17,7 @@ public class Person implements Serializable {
     private String university;
     private String place;
     private String reason;
-    private Image image;
+    private SerializableImage photo;
     private boolean attended;
 
     public Person() {}
@@ -36,7 +36,7 @@ public class Person implements Serializable {
     }
 
     public Person(String creationDate, String name, String birthDate, String city, String phoneNumber,
-                  String email, String university, String place, String reason, Image image) {
+                  String email, String university, String place, String reason, SerializableImage photo) {
         this.creationDate = creationDate;
         this.name = name;
         this.birthDate = birthDate;
@@ -46,7 +46,7 @@ public class Person implements Serializable {
         this.university = university;
         this.place = place;
         this.reason = reason;
-        this.image = image;
+        this.photo = photo;
     }
 
     public String getCreationDate() {
@@ -121,12 +121,12 @@ public class Person implements Serializable {
         this.reason = reason;
     }
 
-    public Image getImage() {
-        return image;
+    public SerializableImage getPhoto() {
+        return photo;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void setPhoto(SerializableImage photo) {
+        this.photo = photo;
     }
 
     public boolean isAttended() {
@@ -155,8 +155,6 @@ public class Person implements Serializable {
                 ", university='" + university + '\'' +
                 ", place='" + place + '\'' +
                 ", reason='" + reason + '\'' +
-                ", image=" + image +
-                ", attended=" + attended +
                 '}';
     }
 }

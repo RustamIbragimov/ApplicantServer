@@ -9,54 +9,45 @@ import java.util.Scanner;
  */
 public class ServerProtocol {
 
+    final private static byte EXIT = 0;
     final private static byte SEARCH_BY_NUMBER = 1;
     final private static byte ATTENDANCE = 2;
+    final private static byte PHOTO = 3;
 
 
     public ServerProtocol() {}
 
-    public byte[] processInput(byte[] bytes) {
-        byte first = bytes[0];
-        byte[] message = new byte[bytes.length - 1];
-        for (int i = 1; i < bytes.length; i++) {
-            message[i - 1] = bytes[i];
+    public Object processInput(byte type, Object obj) {
+        if (type == EXIT) {
+            return Util.EXIT_OBJECT;
         }
-        if (first == SEARCH_BY_NUMBER) {
-            return getByNumber(message);
+        else if (type == SEARCH_BY_NUMBER) {
+            return getByNumber(obj);
         }
-        else if (first == ATTENDANCE) {
-            setAttended(message);
-            return new byte[]{1};
+        else if (type == ATTENDANCE) {
+            setAttended(obj);
+            return Util.NULL_OBJECT;
+        }
+        else if (type == PHOTO) {
+            updatePhoto(obj);
+            return Util.NULL_OBJECT;
         }
         return null;
     }
 
-    private void setAttended(byte[] bytes) {
-        try {
-            String phoneNumber = (String) Serializer.deserialize(bytes);
-            JDBCDriver.getInstance().setAttended(phoneNumber);
-        }
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void setAttended(Object obj) {
+        String phoneNumber = (String) obj;
+        JDBCDriver.getInstance().setAttended(phoneNumber);
     }
 
-    private byte[] getByNumber(byte[] bytes) {
-        byte[] result = null;
-        try {
-            String number = (String) Serializer.deserialize(bytes);
-            List<Person> list = JDBCDriver.getInstance().findByNumber(number);
-            result = Serializer.serialize(list);
-        }
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result;
+    public void updatePhoto(Object obj) {
+        Person person = (Person) obj;
+        JDBCDriver.getInstance().updatePhoto(person);
+    }
+
+    private Object getByNumber(Object obj) {
+        String number = (String) obj;
+        List<Person> list = JDBCDriver.getInstance().findByNumber(number);
+        return list;
     }
 }

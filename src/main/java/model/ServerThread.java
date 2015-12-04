@@ -25,33 +25,31 @@ public class ServerThread implements Runnable {
     }
 
 
-    /**
-     * need to send the size and the array itself
-     * http://stackoverflow.com/questions/1176135/java-socket-send-receive-byte-array
-     */
     public void run() {
-        DataOutputStream out = null;
-        DataInputStream in = null;
+        ObjectOutputStream out = null;
+        ObjectInputStream in = null;
         try  {
-            out = new DataOutputStream(socket.getOutputStream());
-            in = new DataInputStream(socket.getInputStream());
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
 
             ServerProtocol sp = new ServerProtocol();
 
             while (true) {
-                int length = in.readInt();
-                if (length > 0) {
-                    byte[] bytes = new byte[length];
-                    in.readFully(bytes, 0, bytes.length);
-                    byte[] result = sp.processInput(bytes);
-                    if (result.length != 1 && result[0] != 1) {
-                        out.writeInt(result.length);
-                        out.write(result);
-                    }
+                byte type = in.readByte();
+                Object obj = in.readObject();
+                Object result = sp.processInput(type, obj);
+                if (result == Util.EXIT_OBJECT) {
+                    in.close();
+                    out.close();
+                    break;
                 }
+                else if (result != Util.NULL_OBJECT) out.writeObject(result);
             }
         }
         catch (IOException e) {
+            e.printStackTrace();
+        }
+        catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

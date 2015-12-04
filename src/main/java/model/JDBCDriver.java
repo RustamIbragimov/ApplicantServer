@@ -179,7 +179,7 @@ public class JDBCDriver {
             String place = rs.getString("place");
             String reason = rs.getString("reason");
             byte[] imgBytes = rs.getBytes("image");
-            Image image = (Image) Serializer.deserialize(imgBytes);
+            SerializableImage image = Util.bytesToImage(imgBytes);
             boolean attended = rs.getBoolean("attended");
 
             Person person = new Person(creationDate, name, birthDate, city,
@@ -230,6 +230,27 @@ public class JDBCDriver {
             preparedStatement.executeUpdate();
         }
         catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updatePhoto(Person person) {
+        String sql = "UPDATE People\n" +
+                "SET image = ?\n" +
+                "WHERE phone_number = ? AND name = ?;";
+        try {
+            byte[] imgBytes = Util.imgToBytes(person.getPhoto().getImage());
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setBytes(1, imgBytes);
+            stm.setString(2, person.getPhoneNumber());
+            stm.setString(3, person.getName());
+            stm.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
